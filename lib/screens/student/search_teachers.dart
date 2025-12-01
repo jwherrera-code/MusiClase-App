@@ -58,7 +58,17 @@ class _SearchTeachersScreenState extends State<SearchTeachersScreen> {
                 }
                 
                 if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return Center(child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Ocurrió un error al cargar los profesores.'),
+                      SizedBox(height: 8),
+                      TextButton(
+                        onPressed: () => setState(() {}),
+                        child: Text('Reintentar'),
+                      ),
+                    ],
+                  ));
                 }
                 
                 List<Profesor> profesoresFiltrados = snapshot.data!.where((profesor) {

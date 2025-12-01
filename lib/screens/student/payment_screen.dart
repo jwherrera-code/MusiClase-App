@@ -122,11 +122,10 @@ class PaymentScreen extends StatelessWidget {
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Error'),
-          content: Text('No se pudo confirmar el pago: ${e}'),
+          content: Text('No se pudo confirmar el pago. Intenta nuevamente.'),
           actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: Text('OK'))],
         ),
       );
     }
   }
 }
-

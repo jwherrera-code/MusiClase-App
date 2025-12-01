@@ -123,7 +123,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error al descargar: $e'),
+          content: Text('No se pudo descargar el archivo. Intenta nuevamente.'),
           backgroundColor: Colors.red,
         ),
       );

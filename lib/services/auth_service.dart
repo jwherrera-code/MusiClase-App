@@ -49,11 +49,24 @@ class AuthService with ChangeNotifier {
         return null;
       }
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      switch (e.code) {
+        case 'email-already-in-use':
+          return 'Ese email ya está registrado.';
+        case 'invalid-email':
+          return 'El email no es válido.';
+        case 'weak-password':
+          return 'La contraseña es muy débil.';
+        case 'operation-not-allowed':
+          return 'Registro deshabilitado temporalmente.';
+        case 'network-request-failed':
+          return 'Sin conexión. Verifica tu internet.';
+        default:
+          return 'No se pudo crear la cuenta. Intenta nuevamente.';
+      }
     } catch (e) {
-      return 'Error de autenticación: $e';
+      return 'Ocurrió un error de autenticación. Intenta nuevamente.';
     }
-    return 'Error desconocido';
+    return 'Ocurrió un error inesperado. Intenta nuevamente.';
   }
 
   Future<String?> iniciarSesion(String email, String password) async {
@@ -71,11 +84,26 @@ class AuthService with ChangeNotifier {
         return null;
       }
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      switch (e.code) {
+        case 'invalid-email':
+          return 'El email no es válido.';
+        case 'user-not-found':
+          return 'No existe una cuenta con ese email.';
+        case 'wrong-password':
+          return 'La contraseña es incorrecta.';
+        case 'user-disabled':
+          return 'La cuenta está deshabilitada.';
+        case 'too-many-requests':
+          return 'Demasiados intentos. Intenta más tarde.';
+        case 'network-request-failed':
+          return 'Sin conexión. Verifica tu internet.';
+        default:
+          return 'No se pudo iniciar sesión. Intenta nuevamente.';
+      }
     } catch (e) {
-      return 'Error de autenticación: $e';
+      return 'Ocurrió un error de autenticación. Intenta nuevamente.';
     }
-    return 'Error desconocido';
+    return 'Ocurrió un error inesperado. Intenta nuevamente.';
   }
 
   Future<void> cerrarSesion() async {
